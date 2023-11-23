@@ -27,8 +27,8 @@ void main(){
         scanf("%d" , &o);
         switch(o){
             case 1  :   displayLinkedList(head);    break;
-            case 2  :   head = addFront(head);             break;
-            case 5  :   exit(0);                break;
+            case 2  :   head = addFront(head);      break;
+            case 5  :   exit(0);                    break;
         }
     }
 }
