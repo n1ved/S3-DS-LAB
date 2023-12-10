@@ -2,41 +2,50 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define NODE struct node*
-
 struct node {
 	int data ;
 	struct node* next;
 };
 
-NODE addFront(NODE);
-NODE addRear(NODE);
-NODE rmFront(NODE);
-NODE rmRear(NODE);
-void addAfter(NODE);
-void display(NODE);
+struct node * addFront(struct node *);
+struct node * addRear(struct node *);
+struct node * rmFront(struct node *);
+struct node * rmRear(struct node *);
+struct node * rmKey(struct node *);
+void addAfter(struct node *);
+void display(struct node *);
 
 void main(){
-	NODE head = NULL;
+	struct node * head = NULL;
 	int o;
 	while(true){
-		printf("\n0.Display\n1.Add to front\n2.Add to rear\n3.Delete from front\n4.Delete from rear\n5.Insert after\n6.EXIT\nEnter option :");
+		printf("Circular Linked List\n");
+		printf("\t1. Display\n");
+		printf("\t2. Add Front\n");
+		printf("\t3. Add Rear\n");
+		printf("\t4. Add After\n");
+		printf("\t5. Remove Front\n");
+		printf("\t6. Remove Rear\n");
+		printf("\t7. Remove Key\n");
+		printf("\t8. Exit\n");
+		printf("Enter option : ");
 		scanf("%d" , &o);
 		switch(o){
-			case 0	: display(head)		;break;
-			case 1	: head = addFront(head)	;break;
-			case 2	: head = addRear(head)	;break;
-			case 3	: head = rmFront(head)	;break;
-			case 4	: head = rmRear(head)	;break;
-			case 5	: addAfter(head)	;break;
-			case 6	: exit(0)		;break;
-			default	: printf("Invalid option\n");
+			case 1: display(head); break;
+			case 2: head = addFront(head); break;
+			case 3: head = addRear(head); break;
+			case 4: addAfter(head); break;
+			case 5: head = rmFront(head); break;
+			case 6: head = rmRear(head); break;
+			case 7: head = rmKey(head); break;
+			case 8: exit(0);
+			default: printf("Invalid option\n");
 		}
 	}
 }
 
-NODE addFront(NODE head){
-	NODE newNode = malloc(sizeof(struct node));
+struct node * addFront(struct node * head){
+	struct node * newNode = malloc(sizeof(struct node));
 	printf("Enter data : ");
 	scanf("%d" , &newNode->data);
 	
@@ -45,25 +54,22 @@ NODE addFront(NODE head){
 		head = newNode;
 	}else{
 		newNode->next = head;
-	
-		NODE current = head;
+		struct node * current = head;
 		while(current->next != head){
-		current = current->next;	
+			current = current->next;	
 		}
 		head = newNode;
 		current->next = head;
 	
 	}
-	display(head);
 	return head;
 }
 
-NODE addRear(NODE head){
-	NODE current = head;
-	NODE newNode = malloc(sizeof(struct node));
+struct node * addRear(struct node * head){
+	struct node * current = head;
+	struct node * newNode = malloc(sizeof(struct node));
 	printf("Enter data : ");
 	scanf("%d" , &newNode->data);
-
 	if(current == NULL){
 		newNode->next = newNode;
 		head = newNode;
@@ -72,46 +78,44 @@ NODE addRear(NODE head){
 		while(current->next != head){
 			current = current->next;	
 		}
-		newNode->next = current->next;
-		current->next = newNode;	
+		current->next = newNode;
+		newNode->next = head;	
 	}
-	display(head);
 	return head;
 }
 
-NODE rmFront(NODE head){
+struct node * rmFront(struct node * head){
 	if(head == NULL){
 		printf("List empty\n");
 	}
 	else{
-		NODE current = head;
+		struct node * current = head;
 		while(current->next != head){
 			current = current->next;	
 		}
-		NODE temp = head;
+		struct node * temp = head;
 		head = head->next;
 		current->next = head;
 		free(temp);
 	}
-	display(head);
 	return head;
 }
 
-NODE rmRear(NODE head){
+struct node * rmRear(struct node * head){
 	if(head == NULL){
 		printf("List empty\n");
 	}
 	else{
-		NODE current = head;
+		struct node * current = head;
 		while(true){
 			if(current->next == head){
-				NODE temp = current;
+				struct node * temp = current;
 				head = NULL;
 				free(temp);
 				break;
 			}
 			if(current->next->next == head){
-				NODE temp = current->next;
+				struct node * temp = current->next;
 				current->next = head;
 				free(temp);
 				break;
@@ -119,45 +123,79 @@ NODE rmRear(NODE head){
 			current = current->next;
 		}
 	}
-	display(head);
 	return head;
 }
 
-void addAfter(NODE head){
+void addAfter(struct node * head){
 	
 	int key;
-	NODE newNode = malloc(sizeof(struct node));
+	struct node * newNode = malloc(sizeof(struct node));
 	printf("Enter element to search : ");
 	scanf("%d" , &key);
 	printf("Enter element to add after : ");
 	scanf("%d" , &newNode->data);
-	NODE current = head;
-	while(true){
-		if(current->data == key){
-			newNode->next = current->next;
-			current->next = newNode;
-			display(head);
-			return;
+	struct node * current = head;
+	if(head == NULL){
+		printf("List empty\n");
+		return;
+	}
+	else{
+		while(true){
+			if(current->data == key){
+				newNode->next = current->next;
+				current->next = newNode;
+				return;
+			}
+			if(current->next == head){
+				break;
+			}
+			current = current->next;
 		}
-		if(current->next == NULL){
-			break;
-		}
-		current = current->next;
 	}
 	printf("Cannot find %d in List\n" , &key);
 }
 
-void display(NODE head){
-	printf("\n");
-	NODE current = head;
+struct node * rmKey(struct node * head){
+	int key;
+	printf("Enter element to delete : ");
+	scanf("%d" , &key);
+	struct node * current = head;
+	if(head == NULL){
+		printf("List empty\n");
+		return head;
+	}
+	if(current->data == key){
+		struct node * temp = current;
+		head = head->next;
+		free(temp);
+		return head;
+	}
+	else{
+		while(true){
+			if(current->next->data == key){
+				struct node * temp = current->next;
+				current->next = current->next->next;
+				free(temp);
+				return head;
+			}
+			if(current->next == head){
+				break;
+			}
+			current = current->next;
+		}
+	}
+	printf("Cannot find %d in List\n" , &key);
+	return head;
+}
+
+void display(struct node * head){
 	if(head == NULL){
 		printf("List empty\n");
 		return;
-
 	}
-	while(current->next != head){
-			printf("%d ",current->data);
-			current = current->next;
+	while(head->next != head){
+			printf("%d ",head->data);
+			head = head->next;
 	}
-	printf("%d\n",current->data);
+	printf("%d\n",head->data);
 }

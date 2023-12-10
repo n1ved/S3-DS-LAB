@@ -72,7 +72,12 @@ void dequeue(){
 }
 
 void size(){
-	printf("Size of queue is %d\n",r-f+1);
+	if(isEmpty()){
+		printf("Queue underflow\n");
+	}
+	else{
+		printf("Queue size : %d\n",r-f+1);
+	}
 }
 
 void display(){

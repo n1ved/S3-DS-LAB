@@ -2,24 +2,29 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define NODE struct node*
 
 struct node {
 	int data ;
 	struct node* next;
 };
 
-NODE push(NODE);
-NODE pop(NODE);
-void peek(NODE);
-void display(NODE);
+struct node *  push(struct node * );
+struct node *  pop(struct node * );
+void peek(struct node * );
+void display(struct node * );
 
 
 void main(){
-	NODE head = NULL;
+	struct node *  head = NULL;
 	int o;
 	while(true){
-		printf("\n1.Display\n2.Push\n3.Pop\n4.Peek\n5.Exit\nEnter option : ");
+		printf("Stack operations\n");
+		printf("\t1. Display\n");
+		printf("\t2. Push\n");
+		printf("\t3. Pop\n");
+		printf("\t4. Peek\n");
+		printf("\t5. Exit\n");
+		printf("Enter option : ");
 		scanf("%d" , &o);
 		switch(o){
 			case 1	: display(head)		;break;
@@ -32,8 +37,8 @@ void main(){
 	}
 }
 
-NODE push(NODE head){
-	NODE newNode = malloc(sizeof(struct node));
+struct node *  push(struct node *  head){
+	struct node *  newNode = malloc(sizeof(struct node));
 	printf("Enter data : ");
 	scanf("%d" , &newNode->data);
 	newNode->next = head;
@@ -41,22 +46,22 @@ NODE push(NODE head){
 	return head;
 }
 
-NODE pop(NODE head){
+struct node * pop(struct node *  head){
 	if(head == NULL){
-		printf("List empty\n");
+		printf("Stack underflow\n");
 	}
 	else{
-		NODE temp = head;
+		struct node *  temp = head;
 		head = head->next;
 		free(temp);
 	}
 	return head;
 }
 
-void display(NODE head){
+void display(struct node *  head){
 	printf("\n");
 	if(head == NULL){
-		printf("List empty\n");
+		printf("Stack underflow\n");
 		return;
 	}
 	while(head != NULL){
@@ -66,10 +71,10 @@ void display(NODE head){
 	printf("\n");
 }
 
-void peek(NODE head){
+void peek(struct node *  head){
 	printf("\n");
 	if(head == NULL){
-		printf("List empty\n");
+		printf("Stack underflow\n");
 	}
 	else{
 		printf("%d\n",head->data);

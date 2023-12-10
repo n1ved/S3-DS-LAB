@@ -48,50 +48,52 @@ void main(){
 
 void addRear(){
 	if(isFull()){
-		printf("Cannot add , queue full\n");
+		printf("Queue overflow\n");
 	}
 	else{
 		if(isEmpty()){
-			F++;
-			R++;
+			F = 0;
+			R = 0;
 		}
 		else{
 			R = (R+1)%SIZE;
 		}
 		printf("Enter element : ");
 		scanf("%d" , &Q[R]);
-		display();
 	}
 }
 
 void addFront(){
 	if(isFull()){
-		printf("Cannot add , queue full\n");
+		printf("Queue overflow\n");
 	}
 	else{
 		if(isEmpty()){
-			F = SIZE-1;
-			R++;
+			F = 0;
+			R = 0;
 		}
 		else if(F == 0){
 			F = SIZE -1;
 		}
 		else{
-			F = (F-1)%SIZE;
+			F--;
 		}
 		printf("Enter element : ");
 		scanf("%d" , &Q[F]);
-		display();
 	}
 }
 
 void rmRear(){
 	if(isEmpty()){
-		printf("Empty queue , cannot remove element\n");
+		printf("Queue underflow\n");
 	}
 	else{
 		printf("Removing %d\n" , Q[R]);
-		if(R == 0){
+		if(F == R){
+			F = -1;
+			R = -1;
+		}
+		else if(R == 0){
 			R = SIZE - 1;
 		}
 		else{
@@ -102,11 +104,17 @@ void rmRear(){
 
 void rmFront(){
 	if(isEmpty()){
-		printf("Empty queue , cannot remove element\n");
+		printf("Queue underflow\n");
 	}
 	else{
 		printf("Removing %d\n" , Q[F]);
-		F = (F+1)%SIZE;
+		if (F == R){
+			F = -1;
+			R = -1;
+		}
+		else{
+			F = (F+1)%SIZE;
+		}
 	}
 }
 

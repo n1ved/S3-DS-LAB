@@ -1,24 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
-#define NODE struct node*
-
 struct node {
 	int data ;
 	struct node* next;
 };
 
-NODE enqueue(NODE);
-NODE dequeue(NODE);
-void display(NODE);
+struct node * enqueue(struct node *);
+struct node * dequeue(struct node *);
+void display(struct node *);
 
 
 void main(){
-	NODE head = NULL;
+	struct node * head = NULL;
 	int o;
 	while(true){
-		printf("\n1.Display\n2.Enqueue\n3.Dequeue\n4.Exit\nEnter option : ");
+		printf("Queue operations\n");
+		printf("\t1. Display\n");
+		printf("\t2. Enqueue\n");
+		printf("\t3. Dequeue\n");
+		printf("\t4. Exit\n");
+		printf("Enter option : ");
 		scanf("%d" , &o);
 		switch(o){
 			case 1	: display(head)		;break;
@@ -30,9 +32,9 @@ void main(){
 	}
 }
 
-NODE enqueue(NODE head){
-	NODE current = head;
-	NODE newNode = malloc(sizeof(struct node));
+struct node * enqueue(struct node * head){
+	struct node * current = head;
+	struct node * newNode = malloc(sizeof(struct node));
 	printf("Enter data : ");
 	scanf("%d" , &newNode->data);
 	newNode->next = NULL;
@@ -48,22 +50,22 @@ NODE enqueue(NODE head){
 	return head;
 }
 
-NODE dequeue(NODE head){
+struct node * dequeue(struct node * head){
 	if(head == NULL){
-		printf("List empty\n");
+		printf("Queue underflow\n");
 	}
 	else{
-		NODE temp = head;
+		struct node * temp = head;
 		head = head->next;
 		free(temp);
 	}
 	return head;
 }
 
-void display(NODE head){
+void display(struct node * head){
 	printf("\n");
 	if(head == NULL){
-		printf("List empty\n");
+		printf("Queue underflow\n");
 		return;
 	}
 	while(head != NULL){

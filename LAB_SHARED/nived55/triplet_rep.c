@@ -4,33 +4,29 @@
 
 void main(){
 	int sm[L][L];
-	//Matrix sm has to be inputed , the user has to enter rows and columns , after user has to input elemets to index based on above said rows and columns
+	
 	printf("Enter Number of rows and columns : ");
 	int r , c;
 	scanf("%d %d",&r,&c);
 	printf("Enter the matrix : \n");
 	
-	//read the Matrix by index based on [row][column]
+
 	for(int i=0 ; i<r ; i++){
 		for(int j=0 ; j<c ; j++){
 			scanf("%d",&sm[i][j]);
 		}
 	}
-	
-	//create a triplet matrix of maximum rows of L^2
+
 	int tr[L*L][3];
-	
-	//variable to find number of non-zero values
+
 	int count = 0;
-	
-	//variable to keep track of index of triplet matrix
+
 	int k=1;
 	
 	
 	tr[0][0] = r;
 	tr[0][1] = c;
 	
-	//This loop iterates through every elemet of sm and then assign non-zero elemets and their indexes to the triplet 
 	for(int i=0 ; i<r ; i++){
 		for(int j=0 ; j<c ; j++){
 			if(sm[i][j] != 0){

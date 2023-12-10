@@ -3,10 +3,8 @@
 #include <stdlib.h>
 #define SIZE 5
 
-//define queue
 int queue[SIZE];
 
-//initialize Front and Rear reference
 int f = -1;
 int r = -1;
 
@@ -83,7 +81,12 @@ void dequeue(){
 }
 
 void size(){
-	printf("Size of queue is %d\n",r-f+1);
+	if(isEmpty()){
+		printf("Queue underflow\n");
+	}
+	else{
+		printf("Queue size : %d\n",r-f+1);
+	}
 }
 
 void display(){

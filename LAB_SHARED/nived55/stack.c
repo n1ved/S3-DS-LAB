@@ -1,9 +1,4 @@
 
-void push(){
-	if(!isFull()){
-		top++;
-		printf("Enter Element to push : ");
-		scanf("%d",&stack[top]);
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -19,7 +14,6 @@ bool isFull();
 void push();
 void pop();
 void peek();
-
 void display();
 
 void main(){
@@ -47,7 +41,13 @@ bool isEmpty(){
 bool isFull(){
 	return top == SIZE-1;
 }
-}
+
+void push(){
+	if(!isFull()){
+		top++;
+		printf("Enter Element to push : ");
+		scanf("%d",&stack[top]);
+	}
 	else{
 		printf("Stack Overflow , Cannot Push\n");
 	}
@@ -81,3 +81,4 @@ void display(){
 		printf("Empty stack, nothing to display\n");
 	}
 }
+

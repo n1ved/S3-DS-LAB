@@ -19,6 +19,7 @@ void insertionSort(int array[] , int n){
 			
 		}
 		array[j+1] = key;
+		// printArray(array , n);
 	
 	}
 }

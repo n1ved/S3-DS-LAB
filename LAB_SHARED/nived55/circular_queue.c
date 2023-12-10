@@ -38,13 +38,11 @@ void main(){
 }
 
 
-//This function checks the empty condition and return weather true or false
 bool isEmpty(){
 	if(F == -1 && R == -1)
 		return true;
 	return false;
 }
-//This function checks the full condition and return weather true or false
 bool isFull(){
 	if(F == 0 && R==SIZE-1)
 		return true;
@@ -54,8 +52,6 @@ bool isFull(){
 	return false;
 }
 
-
-//This function checks whether its full and if not full enqueues
 void enqueue(){
 	if(!isFull()){
 		if(isEmpty()){
@@ -67,40 +63,35 @@ void enqueue(){
 		}
 		printf("Enter element : ");
 		scanf("%d",&q[R]);
-		display();
 	}
 	else{
 		printf("Queue is full ! \n");
 	}
 }
 
-//resets the queue back to initial possition
 void resetQueue(){
 	F = -1;
 	R = -1;
 }
 
-//This function checks whether its Empty and if not empty dequeues
 void dequeue(){
 	if(!isEmpty()){
+		printf("Dequeued %d\n",q[F]);
 		if(F == R){
 			resetQueue();
 		}
 		else{
 			F = (F+1)%SIZE;
 		}
-		display();
 	}
 	else{
 		printf("Queue is Empty ! \n");
 	}
 }
 
-//Print out the queue
 void display(){
 	if(isEmpty()){
 		printf("Queue is Empty ! \n");
-		return;
 	}
 	printf("Queue : ");
 	int i = F;
