@@ -4,3 +4,5 @@
 - [x] Sparse Matrix using array [[Code]](./sparse_array.c)  
 
 - [ ] Priority Queue
+
+- [x] Selection Sort

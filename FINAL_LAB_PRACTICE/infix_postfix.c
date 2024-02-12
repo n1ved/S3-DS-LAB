@@ -21,7 +21,7 @@ void pop(){
     top--;
 }
 
-bool isOperator(char c){
+int isOperator(char c){
     switch(c){
         case '*' :
         case '/' :
@@ -29,8 +29,8 @@ bool isOperator(char c){
         case '-' :
         case '^' :
         case ')' :
-        case '(' : return true;
-        default  : return false;
+        case '(' : return 1;
+        default  : return 0;
     }
 }
 
@@ -47,7 +47,7 @@ int prior(char c){
 }
 
 void assign(char c){
-    if(!isOperator(c)){
+    if(isOperator(c) == 0){
         enqueue(c);
     }
     else{
@@ -56,8 +56,8 @@ void assign(char c){
         }
         else if (c == ')'){
             while(stack[top] != '('){
-                pop();
-                enqueue(stack[top +1]);
+                enqueue(stack[top]);
+                top--;
             }
             pop();
         }
